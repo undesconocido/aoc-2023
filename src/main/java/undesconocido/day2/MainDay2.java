@@ -11,13 +11,13 @@ public class MainDay2 {
         try (final var lines = Files.lines(Paths.get(INPUT_TXT))) {
             final var games = lines.map(Game::of).toList();
 
-            long part1 = games.stream()
+            final var part1 = games.stream()
                     .filter(Game::isValid)
                     .mapToInt(Game::id)
                     .sum();
             System.out.println("Part1 solution: " + part1);  // 2685
 
-            long part2 = games.stream()
+            final var part2 = games.stream()
                     .mapToInt(Game::cube)
                     .sum();
             System.out.println("Part2 solution: " + part2);   // 83707
