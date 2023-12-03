@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class MainDay2 {
+public class Day2 {
     private static final String INPUT_TXT = "src/main/resources/day2/input.txt";
 
     public static void main(String[] args) {
