@@ -27,9 +27,6 @@ public class Day4 implements Day {
 
         final var total = lines.stream()
                 .map(Card::of)
-                //.peek(System.out::println)
-                //.peek(card -> System.out.println("Matches: " + card.getMatches()))
-                //.peek(card -> System.out.println("Points: " + card.points()))
                 .map(Card::points)
                 .mapToInt(Integer::intValue)
                 .sum();
@@ -83,12 +80,12 @@ public class Day4 implements Day {
     private void part2Logic(final List<Card> cards) {
         for (int i = 0; i < cards.size(); i++) {
             final var currentCard = cards.get(i);
-            final var winningNumbers = currentCard.getMatches();
-            if (winningNumbers.isEmpty()) {
+            final var winnersFound = currentCard.winningMatches();
+            if (winnersFound.isEmpty()) {
                 continue;
             }
             var id = currentCard.id;
-            range(id + 1, id + 1 + winningNumbers.size()).forEachOrdered(j -> cards.add(findCard(cards, j)));
+            range(id + 1, id + 1 + winnersFound.size()).forEachOrdered(j -> cards.add(findCard(cards, j)));
         }
     }
 
@@ -119,11 +116,11 @@ public class Day4 implements Day {
         }
 
         int points() {
-            final var numberOfMatches = getMatches().size();
+            final var numberOfMatches = winningMatches().size();
             return numberOfMatches == 0 ? 0 : (int) Math.pow(2, (double) numberOfMatches - 1);
         }
 
-        private Set<Integer> getMatches() {
+        private Set<Integer> winningMatches() {
             return numbers.stream()
                     .filter(winners::contains)
                     .collect(Collectors.toUnmodifiableSet());
